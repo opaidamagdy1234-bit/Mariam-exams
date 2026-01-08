@@ -3,120 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>𝐌𝐀𝐑𝐈𝐀𝐌 | بنك الأسئلة</title>
+    <title>𝐌𝐀𝐑𝐈𝐀𝐌 | الاختبارات الشاملة</title>
     <style>
         :root { --gold: #D4AF37; --pink: #FFB6C1; --dark-pink: #FF69B4; --white: #ffffff; }
-        body { font-family: 'Arial', sans-serif; background: #FFF5F7; margin: 0; padding: 10px; }
-        .header { text-align: center; padding: 20px; border-bottom: 3px solid var(--gold); background: white; border-radius: 0 0 20px 20px; }
-        .header h1 { color: var(--dark-pink); margin: 5px 0; }
-        .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .btn { background: white; border: 2px solid var(--pink); border-radius: 12px; padding: 15px; cursor: pointer; font-weight: bold; color: var(--dark-pink); text-align: center; }
-        .models-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-        .model-btn { padding: 10px; background: white; border: 1px solid var(--gold); border-radius: 8px; color: var(--gold); cursor: pointer; }
-        .quiz-container { display: none; background: white; padding: 20px; border-radius: 15px; border: 2px solid var(--gold); }
-        .question { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        .option { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid var(--pink); border-radius: 8px; cursor: pointer; text-align: right; }
+        body { font-family: 'Arial', sans-serif; background: #FFF5F7; margin: 0; padding: 10px; text-align: center; }
+        .header { padding: 20px; border-bottom: 3px solid var(--gold); background: white; border-radius: 0 0 20px 20px; margin-bottom: 20px; }
+        .header h1 { color: var(--dark-pink); margin: 5px 0; text-shadow: 1px 1px var(--gold); }
+        
+        /* تصميم الأزرار الفخم من الكود الأول */
+        .subject-card {
+            background: var(--white); border: 2px solid var(--pink); border-radius: 15px;
+            padding: 20px; margin: 15px auto; cursor: pointer; transition: 0.3s;
+            max-width: 400px; font-size: 1.3em; font-weight: bold; color: var(--dark-pink);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .subject-card:hover { border-color: var(--gold); background: var(--pink); color: white; transform: translateY(-3px); }
+
+        .models-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; }
+        .model-btn { padding: 12px; background: white; border: 1px solid var(--gold); border-radius: 10px; color: var(--gold); cursor: pointer; font-weight: bold; }
+        
+        .quiz-container { display: none; background: white; padding: 20px; border-radius: 20px; border: 2px solid var(--gold); max-width: 600px; margin: 0 auto; text-align: right; }
+        .option { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid var(--pink); border-radius: 10px; cursor: pointer; transition: 0.2s; }
         .correct { background: #d4edda !important; border-color: #28a745 !important; color: #155724; }
         .wrong { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
-        .footer { text-align: center; margin-top: 30px; font-weight: bold; color: var(--gold); padding: 10px; border-top: 1px solid var(--pink); }
+        
+        /* لوحة النتيجة */
+        #result-screen { display: none; padding: 30px; background: white; border-radius: 20px; border: 3px solid var(--gold); max-width: 400px; margin: 20px auto; }
+        .score-circle { width: 120px; height: 120px; border: 5px solid var(--dark-pink); border-radius: 50%; line-height: 120px; font-size: 2em; margin: 20px auto; color: var(--dark-pink); font-weight: bold; }
+        
+        .footer { margin-top: 40px; font-weight: bold; color: var(--gold); font-size: 1.2em; }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>𝐌𝐀𝐑𝐈𝐀𝐌 𝐄𝐗𝐀𝐌𝐒</h1>
-        <p>نظام الـ 30 سؤالاً لكل نموذج 🇯🇴</p>
+        <p>نظام الـ 100 نموذج - توجيهي الأردن</p>
     </div>
 
-    <div id="subject-selection">
-        <div class="subject-grid">
-            <div class="btn" onclick="showModels('biology')">🧬 الأحياء</div>
-            <div class="btn" onclick="showModels('religion')">📖 دين تخصص</div>
-        </div>
+    <div id="main-menu">
+        <div class="subject-card" onclick="showModels('biology')">🧬 مادة الأحياء</div>
+        <div class="subject-card" onclick="showModels('religion')">📖 دين تخصص</div>
+        <div class="subject-card" onclick="showModels('chemistry')">🧪 كيمياء</div>
+        <div class="subject-card" onclick="showModels('english')">📝 إنجليزي متقدم</div>
     </div>
 
-    <div id="models-selection" style="display:none; text-align:center;">
-        <h3 id="current-subject-title" style="color: var(--dark-pink);"></h3>
+    <div id="models-menu" style="display:none;">
+        <h2 id="sub-title" style="color: var(--dark-pink);"></h2>
         <div class="models-grid" id="models-list"></div>
-        <button class="btn" style="width:100%; margin-top:15px;" onclick="location.reload()">رجوع للمواد</button>
+        <button class="subject-card" style="font-size: 1em;" onclick="location.reload()">رجوع</button>
     </div>
 
     <div id="quiz-box" class="quiz-container">
-        <h3 id="model-title"></h3>
-        <div id="questions"></div>
-        <button class="btn" style="width:100%;" onclick="location.reload()">إنهاء ومراجعة المواد</button>
+        <h3 id="quiz-title" style="color: var(--dark-pink); text-align: center;"></h3>
+        <div id="questions-area"></div>
+        <button id="finish-btn" class="subject-card" style="width:100%; display:none;" onclick="showFinalResult()">إنهاء و رؤية النتيجة</button>
     </div>
 
-    <div class="footer">حقوق الملكية محفوظة لـ 𝐌𝐀𝐑𝐈𝐀𝐌</div>
+    <div id="result-screen">
+        <h2 style="color: var(--dark-pink);">نتيجة الاختبار</h2>
+        <div class="score-circle" id="score-text">0/30</div>
+        <p id="feedback"></p>
+        <button class="subject-card" style="width:100%;" onclick="location.reload()">العودة للرئيسية</button>
+    </div>
+
+    <div class="footer">حقوق الملكية لـ 𝐌𝐀𝐑𝐈𝐀𝐌</div>
 
     <script>
-        // بنك الأسئلة الحقيقي (يمكنك زيادة الأسئلة هنا)
         const questionBank = {
             biology: [
-                { q: "ما هو الإنزيم المسؤول عن فك التواء الحمض النووي DNA؟", options: ["هيليكيز", "بلمرة", "ربط", "ليزوزيم"], correct: 0 },
-                { q: "أين تتم عملية الترجمة في الخلية؟", options: ["النواة", "الريبوسومات", "الميتوكندريا", "جهاز جولجي"], correct: 1 },
-                { q: "كم عدد جزيئات ATP الناتجة من التحلل السكري لواحد جلوكوز؟", options: ["2", "4", "36", "38"], correct: 0 }
-                // أضف المزيد من أسئلة الأحياء هنا...
+                { q: "ما هو الإنزيم المسؤول عن فك التواء DNA؟", options: ["هيليكيز", "بلمرة", "ربط", "ليزوزيم"], correct: 0 },
+                { q: "أين تتم عملية الترجمة؟", options: ["النواة", "الريبوسومات", "الميتوكندريا", "جولجي"], correct: 1 },
+                // ... سأقوم بإضافة 30 سؤالاً هنا لاحقاً
             ],
             religion: [
-                { q: "من هو الصحابي الملقب بـ 'أمين هذه الأمة'؟", options: ["أبو بكر الصديق", "عمر بن الخطاب", "أبو عبيدة عامر بن الجراح", "خالد بن الوليد"], correct: 2 },
-                { q: "في أي سنة هجرية وقعت غزوة بدر الكبرى؟", options: ["1 هـ", "2 هـ", "3 هـ", "4 هـ"], correct: 1 }
-                // أضف المزيد من أسئلة الدين هنا...
+                { q: "من هو أمين هذه الأمة؟", options: ["أبو بكر", "عمر", "أبو عبيدة عامر بن الجراح", "خالد"], correct: 2 },
             ]
         };
 
-        let currentSubject = "";
+        let currentScore = 0;
+        let answeredCount = 0;
 
-        function showModels(subject) {
-            currentSubject = subject;
-            document.getElementById('subject-selection').style.display = 'none';
-            document.getElementById('models-selection').style.display = 'block';
-            document.getElementById('current-subject-title').innerText = "نماذج مادة " + (subject === 'biology' ? 'الأحياء' : 'الدين');
-            
+        function showModels(sub) {
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('models-menu').style.display = 'block';
+            document.getElementById('sub-title').innerText = "اختاري نموذج " + sub;
             const list = document.getElementById('models-list');
             list.innerHTML = "";
             for(let i=1; i<=100; i++) {
-                let btn = document.createElement('button');
-                btn.className = 'model-btn';
-                btn.innerText = "نموذج " + i;
-                btn.onclick = () => startQuiz(i);
-                list.appendChild(btn);
+                let b = document.createElement('button');
+                b.className = 'model-btn';
+                b.innerText = i;
+                b.onclick = () => startQuiz(sub, i);
+                list.appendChild(b);
             }
         }
 
-        function startQuiz(modelNum) {
-            document.getElementById('models-selection').style.display = 'none';
+        function startQuiz(sub, num) {
+            document.getElementById('models-menu').style.display = 'none';
             document.getElementById('quiz-box').style.display = 'block';
-            document.getElementById('model-title').innerText = "نموذج " + modelNum + " (30 سؤال)";
+            document.getElementById('quiz-title').innerText = "نموذج " + num;
+            const area = document.getElementById('questions-area');
+            area.innerHTML = "";
+            currentScore = 0;
+            answeredCount = 0;
+
+            let questions = questionBank[sub] || [{q: "سيتم إضافة الأسئلة قريباً لهذا النموذج", options: ["..."], correct: 0}];
             
-            const container = document.getElementById('questions');
-            container.innerHTML = "";
-            
-            // اختيار 30 سؤالاً عشوائياً من البنك (أو تكرار المتاح إذا كان أقل من 30)
-            let subjectQs = questionBank[currentSubject];
+            // نكرر الأسئلة لتصل إلى 30
             for(let i=0; i<30; i++) {
-                let qData = subjectQs[i % subjectQs.length]; // يأخذ سؤالاً من المتاح
-                let qDiv = document.createElement('div');
-                qDiv.className = 'question';
-                qDiv.innerHTML = `<p><b>س ${i+1}:</b> ${qData.q}</p>`;
+                let qData = questions[i % questions.length];
+                let div = document.createElement('div');
+                div.style.marginBottom = "20px";
+                div.innerHTML = `<p><b>س${i+1}:</b> ${qData.q}</p>`;
                 
                 qData.options.forEach((opt, idx) => {
-                    let btn = document.createElement('div');
-                    btn.className = 'option';
-                    btn.innerText = opt;
-                    btn.onclick = function() {
+                    let oBtn = document.createElement('div');
+                    oBtn.className = 'option';
+                    oBtn.innerText = opt;
+                    oBtn.onclick = function() {
                         if(this.parentElement.classList.contains('done')) return;
                         this.parentElement.classList.add('done');
+                        answeredCount++;
                         if(idx === qData.correct) {
                             this.classList.add('correct');
+                            currentScore++;
                         } else {
                             this.classList.add('wrong');
-                            this.parentElement.children[qData.correct].classList.add('correct');
+                            this.parentElement.children[qData.correct + 1].classList.add('correct');
                         }
+                        if(answeredCount === 30) document.getElementById('finish-btn').style.display = 'block';
                     };
-                    qDiv.appendChild(btn);
+                    div.appendChild(oBtn);
                 });
-                container.appendChild(qDiv);
+                area.appendChild(div);
             }
+        }
+
+        function showFinalResult() {
+            document.getElementById('quiz-box').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+            document.getElementById('score-text').innerText = currentScore + "/30";
+            document.getElementById('feedback').innerText = currentScore >= 15 ? "أحسنتِ يا مريم! استمري في الإبداع ✨" : "محاولة جيدة، يمكنكِ الأفضل في المرة القادمة 🌸";
         }
     </script>
 </body>
