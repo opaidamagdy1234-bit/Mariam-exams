@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>𝐌𝐀𝐑𝐈𝐀𝐌 | الاختبارات الشاملة</title>
+    <title>𝐌𝐀𝐑𝐈𝐀𝐌 | الاختبارات الاحترافية</title>
     <style>
         :root { --gold: #D4AF37; --pink: #FFB6C1; --dark-pink: #FF69B4; --white: #ffffff; }
         body { font-family: 'Arial', sans-serif; background: #FFF5F7; margin: 0; padding: 10px; text-align: center; }
@@ -14,9 +14,11 @@
         .models-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; }
         .model-btn { padding: 12px; background: white; border: 1px solid var(--gold); border-radius: 10px; color: var(--gold); cursor: pointer; font-weight: bold; }
         .quiz-container { display: none; background: white; padding: 20px; border-radius: 20px; border: 2px solid var(--gold); max-width: 600px; margin: 0 auto; text-align: right; }
-        .option { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid var(--pink); border-radius: 10px; cursor: pointer; transition: 0.2s; }
-        .correct { background: #d4edda !important; border-color: #28a745 !important; color: #155724; }
-        .wrong { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+        .option { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid var(--pink); border-radius: 10px; cursor: pointer; transition: 0.2s; background: #fff; }
+        .option.selected { background: var(--pink); color: white; border-color: var(--dark-pink); }
+        #loading-screen { display: none; padding: 50px; }
+        .loader { border: 8px solid #f3f3f3; border-top: 8px solid var(--gold); border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         #result-screen { display: none; padding: 30px; background: white; border-radius: 20px; border: 3px solid var(--gold); max-width: 400px; margin: 20px auto; }
         .score-circle { width: 120px; height: 120px; border: 5px solid var(--dark-pink); border-radius: 50%; line-height: 120px; font-size: 2em; margin: 20px auto; color: var(--dark-pink); font-weight: bold; }
         .footer { margin-top: 40px; font-weight: bold; color: var(--gold); font-size: 1.2em; }
@@ -25,7 +27,7 @@
 <body>
     <div class="header">
         <h1>𝐌𝐀𝐑𝐈𝐀𝐌 𝐄𝐗𝐀𝐌𝐒</h1>
-        <p>نظام الـ 100 نموذج - توجيهي الأردن</p>
+        <p>نظام الاختبارات الذكي - مريم 🌸</p>
     </div>
 
     <div id="main-menu">
@@ -42,7 +44,13 @@
     <div id="quiz-box" class="quiz-container">
         <h3 id="quiz-title" style="color: var(--dark-pink); text-align: center;"></h3>
         <div id="questions-area"></div>
-        <button id="finish-btn" class="subject-card" style="width:100%; display:none;" onclick="showFinalResult()">إنهاء و رؤية النتيجة</button>
+        <button id="finish-btn" class="subject-card" style="width:100%; display:none; background: var(--gold); color: white;" onclick="startProcessing()">إنهاء الاختبار ومعالجة النتيجة</button>
+    </div>
+
+    <div id="loading-screen">
+        <h2 style="color: var(--dark-pink);">جاري تصحيح الإجابات...</h2>
+        <div class="loader"></div>
+        <p id="timer-text">ستظهر النتيجة بعد 10 ثوانٍ</p>
     </div>
 
     <div id="result-screen">
@@ -59,19 +67,13 @@
             biology: [
                 { q: "ما هو الإنزيم المسؤول عن فك التواء DNA؟", options: ["هيليكيز", "بلمرة", "ربط", "ليزوزيم"], correct: 0 },
                 { q: "أين تتم عملية الترجمة في الخلية؟", options: ["النواة", "الريبوسومات", "الميتوكندريا", "جهاز جولجي"], correct: 1 },
-                { q: "ما هي وحدة بناء البروتين؟", options: ["الحموض النووية", "الحموض الأمينية", "السكريات", "الدهون"], correct: 1 },
-                { q: "أي الجزيئات الآتية يعد سكرًا ثنائيًا؟", options: ["الجلوكوز", "الفركتوز", "السكروز", "الجالاكتوز"], correct: 2 },
-                { q: "ما الناتج النهائي لعملية التحلل السكري؟", options: ["2 بيروفيت", "1 جلوكوز", "6 CO2", "حمض اللبنيك"], correct: 0 },
-                { q: "أين يحدث التخمر اللبني؟", options: ["الميتوكندريا", "العضلات", "الرئة", "الأمعاء"], correct: 1 },
-                { q: "كم عدد ذرات الكربون في سكر الريبوز؟", options: ["3", "4", "5", "6"], correct: 2 },
-                { q: "ما هي الرابطة التي تربط بين الحموض الأمينية؟", options: ["هيدروجينية", "تساهمية غليكوسيدية", "ببتيدية", "أيونية"], correct: 2 },
-                { q: "ما وظيفة أنزيم الربط في تضاعف DNA؟", options: ["فك الالتواء", "بناء سلسلة جديدة", "ربط قطع أوكازاكي", "تحطيم السلسلة"], correct: 2 },
-                { q: "كم عدد جزيئات ATP الناتجة من تحلل جزيء جلوكوز واحد تنفسًا هوائيًا؟", options: ["2", "4", "38", "10"], correct: 2 }
-                // ملاحظة: قمت بوضع 10 أسئلة هنا لتجربة النظام، وسأكررها لتصل لـ 30 في الاختبار
+                { q: "ما الناتج النهائي لعملية التحلل السكري؟", options: ["2 بيروفيت", "جلوكوز", "6 أكسجين", "ماء"], correct: 0 }
             ],
             religion: [
-                { q: "من هو الصحابي الذي أشار بحفر الخندق؟", options: ["عمر بن الخطاب", "سلمان الفارسي", "خالد بن الوليد", "علي بن أبي طالب"], correct: 1 },
-                { q: "كم عدد أركان الإسلام؟", options: ["4", "5", "6", "7"], correct: 1 }
+                { q: "من هو أول من آمن من الرجال؟", options: ["عمر بن الخطاب", "علي بن أبي طالب", "أبو بكر الصديق", "عثمان بن عفان"], correct: 2 },
+                { q: "في أي عام وقعت غزوة أحد؟", options: ["2 هـ", "3 هـ", "4 هـ", "5 هـ"], correct: 1 },
+                { q: "كم عدد سور القرآن الكريم؟", options: ["110", "112", "114", "116"], correct: 2 },
+                { q: "ما هو أطول يوم في حياة النبي صلى الله عليه وسلم؟", options: ["يوم الطائف", "يوم أحد", "يوم بدر", "يوم الخندق"], correct: 0 }
             ]
         };
 
@@ -103,7 +105,6 @@
             answeredCount = 0;
 
             let questions = questionBank[sub];
-            
             for(let i=0; i<30; i++) {
                 let qData = questions[i % questions.length];
                 let div = document.createElement('div');
@@ -116,16 +117,10 @@
                     oBtn.className = 'option';
                     oBtn.innerText = opt;
                     oBtn.onclick = function() {
-                        if(optContainer.classList.contains('done')) return;
-                        optContainer.classList.add('done');
+                        if(optContainer.querySelectorAll('.selected').length > 0) return;
+                        this.classList.add('selected');
                         answeredCount++;
-                        if(idx === qData.correct) {
-                            this.classList.add('correct');
-                            currentScore++;
-                        } else {
-                            this.classList.add('wrong');
-                            optContainer.children[qData.correct].classList.add('correct');
-                        }
+                        if(idx === qData.correct) currentScore++;
                         if(answeredCount === 30) document.getElementById('finish-btn').style.display = 'block';
                     };
                     optContainer.appendChild(oBtn);
@@ -135,11 +130,25 @@
             }
         }
 
-        function showFinalResult() {
+        function startProcessing() {
             document.getElementById('quiz-box').style.display = 'none';
+            document.getElementById('loading-screen').style.display = 'block';
+            let timeLeft = 10;
+            const timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer-text').innerText = "ستظهر النتيجة بعد " + timeLeft + " ثوانٍ";
+                if(timeLeft <= 0) {
+                    clearInterval(timer);
+                    showFinalResult();
+                }
+            }, 1000);
+        }
+
+        function showFinalResult() {
+            document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('result-screen').style.display = 'block';
             document.getElementById('score-text').innerText = currentScore + "/30";
-            document.getElementById('feedback').innerText = currentScore >= 20 ? "أحسنتِ يا مريم! مستوى مذهل ✨" : "محاولة جيدة، راجعي دروسك وستكونين أفضل 🌸";
+            document.getElementById('feedback').innerText = currentScore >= 20 ? "ممتازة يا مريم! فخورون بكِ ✨" : "محاولة جيدة، مراجعة بسيطة وستكونين توب 🌸";
         }
     </script>
 </body>
