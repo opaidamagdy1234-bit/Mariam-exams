@@ -3,83 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>𝐌𝐀𝐑𝐈𝐀𝐌 | Tests Platform</title>
+    <title>𝐌𝐀𝐑𝐈𝐀𝐌 | الاختبارات الشاملة</title>
     <style>
-        :root { 
-            --gold: #D4AF37; 
-            --pink: #FFB6C1; 
-            --dark-pink: #FF69B4;
-            --white: #ffffff;
-        }
-        body { 
-            font-family: 'Arial', sans-serif; 
-            background: linear-gradient(135deg, #FFF0F5 0%, #FFFFFF 100%); 
-            color: #444; margin: 0; padding: 20px; 
-        }
-        .header { 
-            text-align: center; padding: 30px; 
-            border-bottom: 3px solid var(--gold); 
-            margin-bottom: 30px;
-        }
-        .header h1 { 
-            color: var(--dark-pink); font-size: 2.5em; 
-            margin: 0; text-shadow: 1px 1px 2px var(--gold);
-        }
-        .subject-card {
-            background: var(--white);
-            border: 2px solid var(--pink);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 15px 0;
-            cursor: pointer;
-            transition: 0.3s;
-            text-align: center;
-            font-size: 1.3em;
-            font-weight: bold;
-            color: var(--dark-pink);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .subject-card:hover {
-            border-color: var(--gold);
-            background: var(--pink);
-            color: white;
-            transform: translateY(-5px);
-        }
-        .quiz-box { 
-            display: none; background: white; 
-            padding: 20px; border-radius: 20px; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border: 2px solid var(--gold);
-        }
-        .option {
-            display: block; width: 100%; padding: 12px;
-            margin: 10px 0; border: 1px solid var(--pink);
-            border-radius: 10px; cursor: pointer; text-align: right;
-            transition: 0.2s;
-        }
-        .option:hover { background: #FFF0F5; border-color: var(--gold); }
-        .footer { 
-            text-align: center; margin-top: 50px; 
-            font-weight: bold; color: var(--gold); 
-            font-size: 1.2em; letter-spacing: 2px;
-        }
+        :root { --gold: #D4AF37; --pink: #FFB6C1; --dark-pink: #FF69B4; --white: #ffffff; }
+        body { font-family: 'Arial', sans-serif; background: #FFF5F7; color: #444; margin: 0; padding: 10px; }
+        .header { text-align: center; padding: 20px; border-bottom: 3px solid var(--gold); background: white; border-radius: 0 0 20px 20px; }
+        .header h1 { color: var(--dark-pink); margin: 5px 0; text-shadow: 1px 1px var(--gold); }
+        .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .btn { background: white; border: 2px solid var(--pink); border-radius: 12px; padding: 15px; cursor: pointer; font-weight: bold; color: var(--dark-pink); transition: 0.3s; text-align: center; }
+        .btn:hover { border-color: var(--gold); background: var(--pink); color: white; }
+        .models-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; display: none; }
+        .model-btn { padding: 10px; background: var(--white); border: 1px solid var(--gold); border-radius: 8px; font-size: 0.8em; cursor: pointer; color: var(--gold); }
+        .quiz-container { display: none; background: white; padding: 15px; border-radius: 15px; border: 2px solid var(--gold); }
+        .question { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+        .option { display: block; width: 100%; padding: 10px; margin: 5px 0; border: 1px solid var(--pink); border-radius: 8px; cursor: pointer; text-align: right; }
+        .correct { background: #d4edda !important; border-color: #28a745 !important; }
+        .wrong { background: #f8d7da !important; border-color: #dc3545 !important; }
+        .footer { text-align: center; margin-top: 30px; font-weight: bold; color: var(--gold); padding: 10px; border-top: 1px solid var(--pink); }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>𝐌𝐀𝐑𝐈𝐀𝐌 𝐄𝐗𝐀𝐌𝐒</h1>
-        <p style="color: var(--gold);">منصة الاختبارات الذكية - توجيهي الأردن</p>
+        <p>منصة الـ 100 نموذج - توجيهي الأردن</p>
     </div>
 
-    <div id="main-menu">
-        <div class="subject-card" onclick="alert('سيتم إضافة أسئلة الأحياء قريباً')">🧬 مادة الأحياء</div>
-        <div class="subject-card" onclick="alert('سيتم إضافة أسئلة الدين قريباً')">📖 دين تخصص</div>
-        <div class="subject-card" onclick="alert('سيتم إضافة أسئلة الكيمياء قريباً')">🧪 كيمياء</div>
-        <div class="subject-card" onclick="alert('سيتم إضافة أسئلة الإنجليزي قريباً')">📝 إنجليزي متقدم</div>
+    <div id="subject-selection">
+        <div class="subject-grid">
+            <div class="btn" onclick="showModels('الأحياء')">🧬 الأحياء</div>
+            <div class="btn" onclick="showModels('الدين')">📖 دين تخصص</div>
+            <div class="btn" onclick="showModels('الكيمياء')">🧪 كيمياء</div>
+            <div class="btn" onclick="showModels('الإنجليزي')">📝 إنجليزي</div>
+        </div>
     </div>
 
-    <div class="footer">
-        حقوق الملكية محفوظة لـ 𝐌𝐀𝐑𝐈𝐀𝐌
+    <div id="models-selection" style="display:none;">
+        <h3 id="current-subject-title" style="text-align:center; color: var(--dark-pink);"></h3>
+        <div class="models-grid" id="models-list"></div>
+        <button class="btn" style="width:100%; margin-top:15px;" onclick="location.reload()">رجوع للمواد</button>
     </div>
+
+    <div id="quiz-box" class="quiz-container">
+        <h3 id="model-title"></h3>
+        <div id="questions"></div>
+        <button class="btn" style="width:100%;" onclick="showModels(currentSubject)">إنهاء الاختبار</button>
+    </div>
+
+    <div class="footer">حقوق الملكية لـ 𝐌𝐀𝐑𝐈𝐀𝐌</div>
+
+    <script>
+        let currentSubject = "";
+        
+        function showModels(subject) {
+            currentSubject = subject;
+            document.getElementById('subject-selection').style.display = 'none';
+            document.getElementById('quiz-box').style.display = 'none';
+            document.getElementById('models-selection').style.display = 'block';
+            document.getElementById('current-subject-title').innerText = "نماذج مادة " + subject;
+            
+            const list = document.getElementById('models-list');
+            list.innerHTML = "";
+            list.style.display = 'grid';
+            
+            for(let i=1; i<=100; i++) {
+                let btn = document.createElement('button');
+                btn.className = 'model-btn';
+                btn.innerText = "نموذج " + i;
+                btn.onclick = () => startQuiz(i);
+                list.appendChild(btn);
+            }
+        }
+
+        function startQuiz(num) {
+            document.getElementById('models-selection').style.display = 'none';
+            document.getElementById('quiz-box').style.display = 'block';
+            document.getElementById('model-title').innerText = "اختبار " + currentSubject + " - نموذج رقم " + num;
+            
+            const qContainer = document.getElementById('questions');
+            qContainer.innerHTML = "";
+            
+            // توليد 30 سؤالاً تجريبياً (سيتم استبدالها بأسئلة حقيقية لاحقاً)
+            for(let q=1; q<=30; q++) {
+                let qDiv = document.createElement('div');
+                qDiv.className = 'question';
+                qDiv.innerHTML = `<p>${q}. سؤال تجريبي رقم ${q} لمادة ${currentSubject}؟</p>`;
+                
+                ['خيار أ', 'خيار ب', 'خيار ج', 'خيار د'].forEach((opt, idx) => {
+                    let optBtn = document.createElement('div');
+                    optBtn.className = 'option';
+                    optBtn.innerText = opt;
+                    optBtn.onclick = function() {
+                        this.parentElement.querySelectorAll('.option').forEach(el => el.style.pointerEvents = 'none');
+                        if(idx === 0) this.classList.add('correct'); // نفترض دائماً أن الخيار الأول صح للتجربة
+                        else this.classList.add('wrong');
+                    };
+                    qDiv.appendChild(optBtn);
+                });
+                qContainer.appendChild(qDiv);
+            }
+        }
+    </script>
 </body>
 </html>
