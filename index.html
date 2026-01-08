@@ -9,28 +9,16 @@
         body { font-family: 'Arial', sans-serif; background: #FFF5F7; margin: 0; padding: 10px; text-align: center; }
         .header { padding: 20px; border-bottom: 3px solid var(--gold); background: white; border-radius: 0 0 20px 20px; margin-bottom: 20px; }
         .header h1 { color: var(--dark-pink); margin: 5px 0; text-shadow: 1px 1px var(--gold); }
-        
-        /* تصميم الأزرار الفخم من الكود الأول */
-        .subject-card {
-            background: var(--white); border: 2px solid var(--pink); border-radius: 15px;
-            padding: 20px; margin: 15px auto; cursor: pointer; transition: 0.3s;
-            max-width: 400px; font-size: 1.3em; font-weight: bold; color: var(--dark-pink);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
+        .subject-card { background: var(--white); border: 2px solid var(--pink); border-radius: 15px; padding: 20px; margin: 15px auto; cursor: pointer; transition: 0.3s; max-width: 400px; font-size: 1.3em; font-weight: bold; color: var(--dark-pink); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .subject-card:hover { border-color: var(--gold); background: var(--pink); color: white; transform: translateY(-3px); }
-
         .models-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; }
         .model-btn { padding: 12px; background: white; border: 1px solid var(--gold); border-radius: 10px; color: var(--gold); cursor: pointer; font-weight: bold; }
-        
         .quiz-container { display: none; background: white; padding: 20px; border-radius: 20px; border: 2px solid var(--gold); max-width: 600px; margin: 0 auto; text-align: right; }
         .option { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid var(--pink); border-radius: 10px; cursor: pointer; transition: 0.2s; }
         .correct { background: #d4edda !important; border-color: #28a745 !important; color: #155724; }
         .wrong { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
-        
-        /* لوحة النتيجة */
         #result-screen { display: none; padding: 30px; background: white; border-radius: 20px; border: 3px solid var(--gold); max-width: 400px; margin: 20px auto; }
         .score-circle { width: 120px; height: 120px; border: 5px solid var(--dark-pink); border-radius: 50%; line-height: 120px; font-size: 2em; margin: 20px auto; color: var(--dark-pink); font-weight: bold; }
-        
         .footer { margin-top: 40px; font-weight: bold; color: var(--gold); font-size: 1.2em; }
     </style>
 </head>
@@ -43,8 +31,6 @@
     <div id="main-menu">
         <div class="subject-card" onclick="showModels('biology')">🧬 مادة الأحياء</div>
         <div class="subject-card" onclick="showModels('religion')">📖 دين تخصص</div>
-        <div class="subject-card" onclick="showModels('chemistry')">🧪 كيمياء</div>
-        <div class="subject-card" onclick="showModels('english')">📝 إنجليزي متقدم</div>
     </div>
 
     <div id="models-menu" style="display:none;">
@@ -72,11 +58,20 @@
         const questionBank = {
             biology: [
                 { q: "ما هو الإنزيم المسؤول عن فك التواء DNA؟", options: ["هيليكيز", "بلمرة", "ربط", "ليزوزيم"], correct: 0 },
-                { q: "أين تتم عملية الترجمة؟", options: ["النواة", "الريبوسومات", "الميتوكندريا", "جولجي"], correct: 1 },
-                // ... سأقوم بإضافة 30 سؤالاً هنا لاحقاً
+                { q: "أين تتم عملية الترجمة في الخلية؟", options: ["النواة", "الريبوسومات", "الميتوكندريا", "جهاز جولجي"], correct: 1 },
+                { q: "ما هي وحدة بناء البروتين؟", options: ["الحموض النووية", "الحموض الأمينية", "السكريات", "الدهون"], correct: 1 },
+                { q: "أي الجزيئات الآتية يعد سكرًا ثنائيًا؟", options: ["الجلوكوز", "الفركتوز", "السكروز", "الجالاكتوز"], correct: 2 },
+                { q: "ما الناتج النهائي لعملية التحلل السكري؟", options: ["2 بيروفيت", "1 جلوكوز", "6 CO2", "حمض اللبنيك"], correct: 0 },
+                { q: "أين يحدث التخمر اللبني؟", options: ["الميتوكندريا", "العضلات", "الرئة", "الأمعاء"], correct: 1 },
+                { q: "كم عدد ذرات الكربون في سكر الريبوز؟", options: ["3", "4", "5", "6"], correct: 2 },
+                { q: "ما هي الرابطة التي تربط بين الحموض الأمينية؟", options: ["هيدروجينية", "تساهمية غليكوسيدية", "ببتيدية", "أيونية"], correct: 2 },
+                { q: "ما وظيفة أنزيم الربط في تضاعف DNA؟", options: ["فك الالتواء", "بناء سلسلة جديدة", "ربط قطع أوكازاكي", "تحطيم السلسلة"], correct: 2 },
+                { q: "كم عدد جزيئات ATP الناتجة من تحلل جزيء جلوكوز واحد تنفسًا هوائيًا؟", options: ["2", "4", "38", "10"], correct: 2 }
+                // ملاحظة: قمت بوضع 10 أسئلة هنا لتجربة النظام، وسأكررها لتصل لـ 30 في الاختبار
             ],
             religion: [
-                { q: "من هو أمين هذه الأمة؟", options: ["أبو بكر", "عمر", "أبو عبيدة عامر بن الجراح", "خالد"], correct: 2 },
+                { q: "من هو الصحابي الذي أشار بحفر الخندق؟", options: ["عمر بن الخطاب", "سلمان الفارسي", "خالد بن الوليد", "علي بن أبي طالب"], correct: 1 },
+                { q: "كم عدد أركان الإسلام؟", options: ["4", "5", "6", "7"], correct: 1 }
             ]
         };
 
@@ -86,7 +81,7 @@
         function showModels(sub) {
             document.getElementById('main-menu').style.display = 'none';
             document.getElementById('models-menu').style.display = 'block';
-            document.getElementById('sub-title').innerText = "اختاري نموذج " + sub;
+            document.getElementById('sub-title').innerText = "اختاري نموذج " + (sub === 'biology' ? 'الأحياء' : 'الدين');
             const list = document.getElementById('models-list');
             list.innerHTML = "";
             for(let i=1; i<=100; i++) {
@@ -107,34 +102,35 @@
             currentScore = 0;
             answeredCount = 0;
 
-            let questions = questionBank[sub] || [{q: "سيتم إضافة الأسئلة قريباً لهذا النموذج", options: ["..."], correct: 0}];
+            let questions = questionBank[sub];
             
-            // نكرر الأسئلة لتصل إلى 30
             for(let i=0; i<30; i++) {
                 let qData = questions[i % questions.length];
                 let div = document.createElement('div');
-                div.style.marginBottom = "20px";
+                div.style.marginBottom = "25px";
                 div.innerHTML = `<p><b>س${i+1}:</b> ${qData.q}</p>`;
                 
+                const optContainer = document.createElement('div');
                 qData.options.forEach((opt, idx) => {
                     let oBtn = document.createElement('div');
                     oBtn.className = 'option';
                     oBtn.innerText = opt;
                     oBtn.onclick = function() {
-                        if(this.parentElement.classList.contains('done')) return;
-                        this.parentElement.classList.add('done');
+                        if(optContainer.classList.contains('done')) return;
+                        optContainer.classList.add('done');
                         answeredCount++;
                         if(idx === qData.correct) {
                             this.classList.add('correct');
                             currentScore++;
                         } else {
                             this.classList.add('wrong');
-                            this.parentElement.children[qData.correct + 1].classList.add('correct');
+                            optContainer.children[qData.correct].classList.add('correct');
                         }
                         if(answeredCount === 30) document.getElementById('finish-btn').style.display = 'block';
                     };
-                    div.appendChild(oBtn);
+                    optContainer.appendChild(oBtn);
                 });
+                div.appendChild(optContainer);
                 area.appendChild(div);
             }
         }
@@ -143,7 +139,7 @@
             document.getElementById('quiz-box').style.display = 'none';
             document.getElementById('result-screen').style.display = 'block';
             document.getElementById('score-text').innerText = currentScore + "/30";
-            document.getElementById('feedback').innerText = currentScore >= 15 ? "أحسنتِ يا مريم! استمري في الإبداع ✨" : "محاولة جيدة، يمكنكِ الأفضل في المرة القادمة 🌸";
+            document.getElementById('feedback').innerText = currentScore >= 20 ? "أحسنتِ يا مريم! مستوى مذهل ✨" : "محاولة جيدة، راجعي دروسك وستكونين أفضل 🌸";
         }
     </script>
 </body>
