@@ -3,42 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>𝐌𝐀𝐑𝐈𝐀𝐌 | الاختبارات الشاملة</title>
+    <title>𝐌𝐀𝐑𝐈𝐀𝐌 | بنك الأسئلة</title>
     <style>
         :root { --gold: #D4AF37; --pink: #FFB6C1; --dark-pink: #FF69B4; --white: #ffffff; }
-        body { font-family: 'Arial', sans-serif; background: #FFF5F7; color: #444; margin: 0; padding: 10px; }
+        body { font-family: 'Arial', sans-serif; background: #FFF5F7; margin: 0; padding: 10px; }
         .header { text-align: center; padding: 20px; border-bottom: 3px solid var(--gold); background: white; border-radius: 0 0 20px 20px; }
-        .header h1 { color: var(--dark-pink); margin: 5px 0; text-shadow: 1px 1px var(--gold); }
+        .header h1 { color: var(--dark-pink); margin: 5px 0; }
         .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .btn { background: white; border: 2px solid var(--pink); border-radius: 12px; padding: 15px; cursor: pointer; font-weight: bold; color: var(--dark-pink); transition: 0.3s; text-align: center; }
-        .btn:hover { border-color: var(--gold); background: var(--pink); color: white; }
-        .models-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; display: none; }
-        .model-btn { padding: 10px; background: var(--white); border: 1px solid var(--gold); border-radius: 8px; font-size: 0.8em; cursor: pointer; color: var(--gold); }
-        .quiz-container { display: none; background: white; padding: 15px; border-radius: 15px; border: 2px solid var(--gold); }
-        .question { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
-        .option { display: block; width: 100%; padding: 10px; margin: 5px 0; border: 1px solid var(--pink); border-radius: 8px; cursor: pointer; text-align: right; }
-        .correct { background: #d4edda !important; border-color: #28a745 !important; }
-        .wrong { background: #f8d7da !important; border-color: #dc3545 !important; }
+        .btn { background: white; border: 2px solid var(--pink); border-radius: 12px; padding: 15px; cursor: pointer; font-weight: bold; color: var(--dark-pink); text-align: center; }
+        .models-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .model-btn { padding: 10px; background: white; border: 1px solid var(--gold); border-radius: 8px; color: var(--gold); cursor: pointer; }
+        .quiz-container { display: none; background: white; padding: 20px; border-radius: 15px; border: 2px solid var(--gold); }
+        .question { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .option { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid var(--pink); border-radius: 8px; cursor: pointer; text-align: right; }
+        .correct { background: #d4edda !important; border-color: #28a745 !important; color: #155724; }
+        .wrong { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
         .footer { text-align: center; margin-top: 30px; font-weight: bold; color: var(--gold); padding: 10px; border-top: 1px solid var(--pink); }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>𝐌𝐀𝐑𝐈𝐀𝐌 𝐄𝐗𝐀𝐌𝐒</h1>
-        <p>منصة الـ 100 نموذج - توجيهي الأردن</p>
+        <p>نظام الـ 30 سؤالاً لكل نموذج 🇯🇴</p>
     </div>
 
     <div id="subject-selection">
         <div class="subject-grid">
-            <div class="btn" onclick="showModels('الأحياء')">🧬 الأحياء</div>
-            <div class="btn" onclick="showModels('الدين')">📖 دين تخصص</div>
-            <div class="btn" onclick="showModels('الكيمياء')">🧪 كيمياء</div>
-            <div class="btn" onclick="showModels('الإنجليزي')">📝 إنجليزي</div>
+            <div class="btn" onclick="showModels('biology')">🧬 الأحياء</div>
+            <div class="btn" onclick="showModels('religion')">📖 دين تخصص</div>
         </div>
     </div>
 
-    <div id="models-selection" style="display:none;">
-        <h3 id="current-subject-title" style="text-align:center; color: var(--dark-pink);"></h3>
+    <div id="models-selection" style="display:none; text-align:center;">
+        <h3 id="current-subject-title" style="color: var(--dark-pink);"></h3>
         <div class="models-grid" id="models-list"></div>
         <button class="btn" style="width:100%; margin-top:15px;" onclick="location.reload()">رجوع للمواد</button>
     </div>
@@ -46,25 +43,37 @@
     <div id="quiz-box" class="quiz-container">
         <h3 id="model-title"></h3>
         <div id="questions"></div>
-        <button class="btn" style="width:100%;" onclick="showModels(currentSubject)">إنهاء الاختبار</button>
+        <button class="btn" style="width:100%;" onclick="location.reload()">إنهاء ومراجعة المواد</button>
     </div>
 
-    <div class="footer">حقوق الملكية لـ 𝐌𝐀𝐑𝐈𝐀𝐌</div>
+    <div class="footer">حقوق الملكية محفوظة لـ 𝐌𝐀𝐑𝐈𝐀𝐌</div>
 
     <script>
+        // بنك الأسئلة الحقيقي (يمكنك زيادة الأسئلة هنا)
+        const questionBank = {
+            biology: [
+                { q: "ما هو الإنزيم المسؤول عن فك التواء الحمض النووي DNA؟", options: ["هيليكيز", "بلمرة", "ربط", "ليزوزيم"], correct: 0 },
+                { q: "أين تتم عملية الترجمة في الخلية؟", options: ["النواة", "الريبوسومات", "الميتوكندريا", "جهاز جولجي"], correct: 1 },
+                { q: "كم عدد جزيئات ATP الناتجة من التحلل السكري لواحد جلوكوز؟", options: ["2", "4", "36", "38"], correct: 0 }
+                // أضف المزيد من أسئلة الأحياء هنا...
+            ],
+            religion: [
+                { q: "من هو الصحابي الملقب بـ 'أمين هذه الأمة'؟", options: ["أبو بكر الصديق", "عمر بن الخطاب", "أبو عبيدة عامر بن الجراح", "خالد بن الوليد"], correct: 2 },
+                { q: "في أي سنة هجرية وقعت غزوة بدر الكبرى؟", options: ["1 هـ", "2 هـ", "3 هـ", "4 هـ"], correct: 1 }
+                // أضف المزيد من أسئلة الدين هنا...
+            ]
+        };
+
         let currentSubject = "";
-        
+
         function showModels(subject) {
             currentSubject = subject;
             document.getElementById('subject-selection').style.display = 'none';
-            document.getElementById('quiz-box').style.display = 'none';
             document.getElementById('models-selection').style.display = 'block';
-            document.getElementById('current-subject-title').innerText = "نماذج مادة " + subject;
+            document.getElementById('current-subject-title').innerText = "نماذج مادة " + (subject === 'biology' ? 'الأحياء' : 'الدين');
             
             const list = document.getElementById('models-list');
             list.innerHTML = "";
-            list.style.display = 'grid';
-            
             for(let i=1; i<=100; i++) {
                 let btn = document.createElement('button');
                 btn.className = 'model-btn';
@@ -74,32 +83,39 @@
             }
         }
 
-        function startQuiz(num) {
+        function startQuiz(modelNum) {
             document.getElementById('models-selection').style.display = 'none';
             document.getElementById('quiz-box').style.display = 'block';
-            document.getElementById('model-title').innerText = "اختبار " + currentSubject + " - نموذج رقم " + num;
+            document.getElementById('model-title').innerText = "نموذج " + modelNum + " (30 سؤال)";
             
-            const qContainer = document.getElementById('questions');
-            qContainer.innerHTML = "";
+            const container = document.getElementById('questions');
+            container.innerHTML = "";
             
-            // توليد 30 سؤالاً تجريبياً (سيتم استبدالها بأسئلة حقيقية لاحقاً)
-            for(let q=1; q<=30; q++) {
+            // اختيار 30 سؤالاً عشوائياً من البنك (أو تكرار المتاح إذا كان أقل من 30)
+            let subjectQs = questionBank[currentSubject];
+            for(let i=0; i<30; i++) {
+                let qData = subjectQs[i % subjectQs.length]; // يأخذ سؤالاً من المتاح
                 let qDiv = document.createElement('div');
                 qDiv.className = 'question';
-                qDiv.innerHTML = `<p>${q}. سؤال تجريبي رقم ${q} لمادة ${currentSubject}؟</p>`;
+                qDiv.innerHTML = `<p><b>س ${i+1}:</b> ${qData.q}</p>`;
                 
-                ['خيار أ', 'خيار ب', 'خيار ج', 'خيار د'].forEach((opt, idx) => {
-                    let optBtn = document.createElement('div');
-                    optBtn.className = 'option';
-                    optBtn.innerText = opt;
-                    optBtn.onclick = function() {
-                        this.parentElement.querySelectorAll('.option').forEach(el => el.style.pointerEvents = 'none');
-                        if(idx === 0) this.classList.add('correct'); // نفترض دائماً أن الخيار الأول صح للتجربة
-                        else this.classList.add('wrong');
+                qData.options.forEach((opt, idx) => {
+                    let btn = document.createElement('div');
+                    btn.className = 'option';
+                    btn.innerText = opt;
+                    btn.onclick = function() {
+                        if(this.parentElement.classList.contains('done')) return;
+                        this.parentElement.classList.add('done');
+                        if(idx === qData.correct) {
+                            this.classList.add('correct');
+                        } else {
+                            this.classList.add('wrong');
+                            this.parentElement.children[qData.correct].classList.add('correct');
+                        }
                     };
-                    qDiv.appendChild(optBtn);
+                    qDiv.appendChild(btn);
                 });
-                qContainer.appendChild(qDiv);
+                container.appendChild(qDiv);
             }
         }
     </script>
